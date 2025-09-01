@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text3D, Center, Float } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import ScrollReveal from './ScrollReveal';
 import * as THREE from 'three';
 
 const FloatingHoodie = () => {
@@ -41,7 +40,6 @@ const Hero3D = () => {
       <pointLight position={[10, 10, 10]} intensity={1} />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
       <FloatingHoodie />
-      <OrbitControls enableZoom={false} enablePan={false} />
     </Canvas>
   );
 };
@@ -77,25 +75,15 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Desert wind effect */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/5 to-transparent"
-        animate={{
-          x: ['-100%', '100%'],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
-          <ScrollReveal direction="left" delay={0.5}>
-            <motion.div
-              className="text-center lg:text-left"
-            >
+          <motion.div
+            className="text-center lg:text-left"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
             <motion.h1
               className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-white to-purple-200 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 50, rotateX: 90 }}
@@ -140,19 +128,19 @@ const Hero = () => {
                 Our Story
               </motion.a>
             </motion.div>
-            </motion.div>
-          </ScrollReveal>
+          </motion.div>
 
           {/* Right side - 3D Model */}
-          <ScrollReveal direction="right" delay={0.8}>
-            <motion.div
-              className="h-96 lg:h-[500px] relative"
-            >
+          <motion.div
+            className="h-96 lg:h-[500px] relative"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
             {/* Glow effect behind 3D model */}
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-amber-500/20 rounded-2xl blur-xl" />
             <Hero3D />
-            </motion.div>
-          </ScrollReveal>
+          </motion.div>
         </div>
       </div>
 

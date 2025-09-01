@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, Text } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import ScrollReveal from './ScrollReveal';
 import * as THREE from 'three';
 
 const Product3D = ({ color, position, embroideryColor }: { color: string; position: [number, number, number]; embroideryColor: string }) => {
@@ -62,8 +61,6 @@ const Collections3D = () => {
       <Product3D color="#1a1a1a" position={[-2.5, 0, 0]} embroideryColor="#8b5cf6" />
       <Product3D color="#2d2d2d" position={[0, 0, 0]} embroideryColor="#06b6d4" />
       <Product3D color="#0f0f0f" position={[2.5, 0, 0]} embroideryColor="#f59e0b" />
-      
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
     </Canvas>
   );
 };
@@ -118,10 +115,13 @@ const Collections = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <motion.div
-            className="text-center mb-16"
-          >
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
             Our Collections
           </h2>
@@ -129,28 +129,32 @@ const Collections = () => {
             Each piece is meticulously crafted with premium materials and intricate embroidery, 
             designed for those who appreciate quality and comfort.
           </p>
-          </motion.div>
-        </ScrollReveal>
+        </motion.div>
 
         {/* 3D Product Showcase */}
-        <ScrollReveal delay={0.3}>
-          <motion.div
-            className="h-96 mb-16 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-900/20 via-purple-900/20 to-blue-900/20 backdrop-blur-sm border border-amber-300/20 shadow-2xl"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
+        <motion.div
+          className="h-96 mb-16 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-900/20 via-purple-900/20 to-blue-900/20 backdrop-blur-sm border border-amber-300/20 shadow-2xl"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.02 }}
+        >
           <Collections3D />
-          </motion.div>
-        </ScrollReveal>
+        </motion.div>
 
         {/* Collection Grid */}
         <div className="grid md:grid-cols-3 gap-8">
           {collections.map((collection, index) => (
-            <ScrollReveal key={collection.name} delay={0.2 * index} direction="up">
-              <motion.div
-                className="group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/50 transition-all duration-500"
+            <motion.div
+              key={collection.name}
+              className="group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/50 transition-all duration-500"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 * index }}
+              viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              >
+            >
               <div className="aspect-square overflow-hidden">
                 <img
                   src={collection.image}
@@ -183,8 +187,7 @@ const Collections = () => {
 
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-amber-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </motion.div>
-            </ScrollReveal>
+            </motion.div>
           ))}
         </div>
       </div>

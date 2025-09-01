@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SandstormIntro from './components/SandstormIntro';
 import Navbar from './components/Navbar';
@@ -8,8 +7,6 @@ import Collections from './components/Collections';
 import Story from './components/Story';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ScrollReveal from './components/ScrollReveal';
-import ParallaxSection from './components/ParallaxSection';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -29,17 +26,9 @@ function App() {
             <Route path="/" element={
               <>
                 <Hero />
-                <ScrollReveal>
-                  <Collections />
-                </ScrollReveal>
-                <ParallaxSection speed={0.3}>
-                  <ScrollReveal direction="right" delay={0.2}>
-                    <Story />
-                  </ScrollReveal>
-                </ParallaxSection>
-                <ScrollReveal direction="up" delay={0.3}>
-                  <Contact />
-                </ScrollReveal>
+                <Collections />
+                <Story />
+                <Contact />
               </>
             } />
           </Routes>
