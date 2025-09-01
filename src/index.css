@@ -1,5 +1,5 @@
 /* Always put imports first */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700&display=swap');
 
 /* Tailwind directives */
 @tailwind base;
@@ -20,55 +20,63 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Cinzel', sans-serif;
   background-color: #000000;
   color: #ffffff;
   line-height: 1.6;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: linear-gradient(to bottom, #1a1a1a, #2d1810);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #8b5cf6, #06b6d4);
-  border-radius: 4px;
+  background: linear-gradient(to bottom, #d97706, #8b5cf6, #06b6d4);
+  border-radius: 6px;
+  border: 2px solid #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #7c3aed, #0891b2);
+  background: linear-gradient(to bottom, #ea580c, #7c3aed, #0891b2);
 }
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4, #f59e0b);
+  background: linear-gradient(135deg, #d97706, #8b5cf6, #06b6d4, #f59e0b);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift 3s ease infinite;
+  animation: gradient-shift 4s ease infinite;
 }
 
 @keyframes gradient-shift {
   0%, 100% {
     background-position: 0% 50%;
   }
+  25% {
+    background-position: 100% 0%;
+  }
   50% {
     background-position: 100% 50%;
+  }
+  75% {
+    background-position: 0% 100%;
   }
 }
 
 /* Glass morphism */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(217, 119, 6, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(217, 119, 6, 0.2);
 }
 
 /* Hover glow */
@@ -84,10 +92,51 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.3), rgba(139, 92, 246, 0.2), transparent);
   transition: left 0.5s;
 }
 
 .glow-on-hover:hover::before {
   left: 100%;
+}
+
+/* Sandstorm effect */
+@keyframes sandstorm {
+  0% { transform: translateX(-100%) rotate(0deg); opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(360deg); opacity: 0.8; }
+}
+
+.sandstorm-particle {
+  animation: sandstorm 3s linear infinite;
+}
+
+/* Cinematic text reveal */
+@keyframes textReveal {
+  0% { 
+    opacity: 0; 
+    transform: translateY(50px) rotateX(90deg); 
+    filter: blur(10px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) rotateX(0deg); 
+    filter: blur(0px);
+  }
+}
+
+.cinematic-reveal {
+  animation: textReveal 1.5s ease-out forwards;
+}
+
+/* Smooth scrolling enhancement */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Custom selection colors */
+::selection {
+  background: rgba(217, 119, 6, 0.3);
+  color: white;
 }
